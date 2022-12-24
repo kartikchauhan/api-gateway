@@ -17,7 +17,7 @@ const logStream = rfs.createStream('access.log', {
 
 /**
  * log request in custom format:
- * [24/Dec/2022:19:14:46 +0000] ::1 - PostmanRuntime/7.29.2 "GET /users HTTP/1.1" | 200 24.461
+ * [24/Dec/2022:19:14:46 +0000] ::1 - PostmanRuntime/7.29.2 "GET /resource HTTP/1.1" | 200 24.461
  */
 morgan.format('custom', '[:date[clf]] :remote-addr :remote-user :user-agent ":method :url HTTP/:http-version" | :status :total-time')
 
