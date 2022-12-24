@@ -1,5 +1,5 @@
-const { createHash } = require('./hash');
+const { createHash } = require('./hash')
 
 module.exports = {
-    createHash,
+    createHash
 }

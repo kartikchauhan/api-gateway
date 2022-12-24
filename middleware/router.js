@@ -1,11 +1,14 @@
-const Router = require('express').Router();
+const Router = require('express').Router()
 
 Router.all('*', (req, res, next) => {
-    
-    if (req.url === '/users/' && req.method === 'POST') {
-        const body = req.body;
+    console.log('Inside router')
+
+    if (req.url === '/users' && req.method === 'GET') {
+        // const body = req.body
+
         // make http call to POST /users/
     }
+    next()
 })
 
-module.exports = { Router };
+module.exports = { Router }
