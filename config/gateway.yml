@@ -1,0 +1,16 @@
+services:
+    userService:
+        port: 8090
+        base_url: http://localhost
+        endpoints:
+            get:
+                - /users
+                - /users/*
+            post: 
+                - /users
+            put:
+                - /user/*
+            delete:
+                - /users/*
+            
+    
