@@ -1,37 +1,31 @@
 const { requestResolver } = require('./requestResolver')
+const { httpService } = require('../services')
 
 const Router = require('express').Router()
 
-Router.all('*', (req, res, next) => {
-    const services = requestResolver()
+Router.all('*', async (req, res, next) => {
+    const servicesConfig = requestResolver()
+    let service
 
-    let port, baseUrl, endpoints
     const reqMethod = req.method.toLowerCase()
+    const reqURL = req.url
 
-    switch (req.url) {
-    case '/users': {
-        const serviceInfo = services.userService
-
-        port = serviceInfo.port
-        baseUrl = serviceInfo.base_url
-        endpoints = serviceInfo.endpoints
-
-        console.log(endpoints[reqMethod].includes('dsds'))
-
-        if (typeof endpoints[reqMethod] === 'undefined' || !endpoints[reqMethod].includes(req.url)) {
-            throw new Error('service info not found')
-        } else {
-            // make HTTP call to the endpoint
-        }
-    }
-        break
-
-    default: {
-        throw new Error('service info not found')
-    }
+    if (reqURL === '/users') {
+        service = servicesConfig.userService
+    } else {
+        throw new Error('Invalid URL')
     }
 
-    next()
+    const endpoints = service.endpoints
+
+    if (typeof endpoints[reqMethod] === 'undefined' || !endpoints[reqMethod].includes(reqURL)) {
+        throw new Error('Invalid endpoint')
+    }
+
+    const response = await httpService.call(req, service)
+    res.send(response)
+
+    // next()
 })
 
 module.exports = { Router }
