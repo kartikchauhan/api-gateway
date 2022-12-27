@@ -3,7 +3,7 @@ const { httpService } = require('../services')
 
 const Router = require('express').Router()
 
-Router.all('*', async (req, res, next) => {
+Router.all('*', async (req, res) => {
     const servicesConfig = requestResolver()
     let service
 
@@ -24,8 +24,6 @@ Router.all('*', async (req, res, next) => {
 
     const response = await httpService.call(req, service)
     res.send(response)
-
-    // next()
 })
 
 module.exports = { Router }
